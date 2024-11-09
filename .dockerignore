@@ -1,0 +1,3 @@
+# Aqui são os arquivos que o docker vai ignorar pois ele já copiou a node modules
+
+node_modules

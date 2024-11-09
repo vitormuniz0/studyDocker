@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  # nome da nossa aplicação
+  app:
+    # O build é basicamente qual a localização de onde está o dockerfile
+    build: .
+    # O comando que eu qeuro realizar assim que a aplicação subir
+    command: npm start
+    # Porta em que eu quero redirecionar
+    ports:
+      - "3000:3000"
+    # Aqui é qual pasta que eu quero refletir as alterações
+    volumes:
+      - .:/usr/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports: -"5432:5432"
+# comdando para rodar o docker compose "docker-compose up"
