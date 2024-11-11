@@ -1,12 +1,11 @@
-require("dotenv").config();
-const express = require("express");
-const { Client } = require("pg");
+import express from "express";
+import pkg from 'pg';
+const { Client } = pkg;
 
 const PORT = process.env.PORT;
-const HOST = "0.0.0.0";
 
 const dbConfig = {
-  host: process.env.DB_HOST || "localhost",
+  host: process.env.DB_HOST ,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -25,15 +24,6 @@ app.get("/", (req, res) => {
   res.send("Hello Word");
 });
 
-app.get("/data", async (req, res) => {
-  try {
-    const result = await client.query("SELECT NOW()");
-    res.json(result.rows);
-  } catch (error) {
-    res.status(500).send("Erro ao consultar banco de dados!");
-  }
-});
-
-app.listen(PORT, HOST, () => {
+app.listen(PORT, () => {
   console.log(`Servidor Rodando na porta ${PORT}`);
 });
